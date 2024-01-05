@@ -1,12 +1,10 @@
-from abc import ABC ,abstractmethod
+from abc import ABC, abstractmethod
 
 
 class MyInterface(ABC):
-
     @abstractmethod
     def save(self, o):
         pass
-
     @abstractmethod
-    def read(self) -> list:
+    def read(self,file_path) -> list:
         pass

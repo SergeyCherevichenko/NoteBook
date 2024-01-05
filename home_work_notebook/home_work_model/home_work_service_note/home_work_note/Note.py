@@ -1,12 +1,8 @@
 import datetime
-import json
-
-from FileHandlerJson import FileHandlerJson
 
 
 class Note:
     id = 1
-
     def __init__(self, title, body):
         self.id = Note.id
         self.__title = title
@@ -34,10 +30,17 @@ class Note:
         return self.data_creation
 
     def get_note_data_creating_str(self) -> str:
-        return self.data_creation.strftime("%Y/%m/%d  %H-%M-%S")
+        data_creating_str = self.data_creation.strftime("%Y/%m/%d  %H-%M-%S")
+        return data_creating_str
 
     def get_note_data_change_str(self) -> str:
-        return self.data_change.strftime("%Y/%m/%d  %H-%M-%S")
+        data_change_str = self.data_change.strftime("%Y/%m/%d  %H-%M-%S")
+        return data_change_str
+    def set_note_data_creating(self,datatime):
+        self.data_creation = datetime.datetime.replace(datatime)
+
+    def set_note_data_change(self,datatime):
+        self.data_change = datetime.datetime.replace(datatime)
 
     def get_note_data_change(self) -> datetime:
         return self.data_change
@@ -50,10 +53,13 @@ class Note:
         self.__body = body
         self.data_change = datetime.datetime.now()
 
+    def set_note_id(self,id):
+        self.id = id
+
     def note_to_string(self):
-        data_creating_str = self.data_creation.strftime("%Y/%m/%d  %H-%M-%S")
-        data_change_str = self.data_change.strftime("%Y/%m/%d  %H-%M-%S")
+        data1 = self.get_note_data_creating_str()
+        data2 = self.get_note_data_change_str()
         return (f"Заметка №{self.id}\n\nЗаголовок - {self.__title}\n\nСодержание - {self.__body}"
-                f"\n\nДата создания  :   {self.get_note_data_creating_str()}"
-                f"\nДата изменения :   {self.get_note_data_change_str()}\n"
+                f"\n\nДата создания  :   {data1}"
+                f"\nДата изменения :   {data2}\n"
                 f"--------------------------------\n")

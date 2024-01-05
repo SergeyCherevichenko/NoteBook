@@ -1,9 +1,4 @@
-import json
-from tkinter.ttk import Notebook
-
-from FileHandlerJson import FileHandlerJson
-from Note import Note
-
+from home_work_notebook.home_work_model.home_work_service_note.home_work_note.Note import Note
 
 
 class Notebook:
@@ -14,17 +9,14 @@ class Notebook:
     def get_notes(self) -> list:
         return self.notes
 
-    def set_notes(self,list):
+    def set_notes(self, list):
         self.notes = list
 
     def dump(self):
-        return {"Заметки":{"Заметка №": Note.get_note_id(),"Заголовок": Note.set_note_title(),
+        return {"Заметки": {"Заметка №": Note.get_note_id(), "Заголовок": Note.set_note_title(),
                             "Содержание": Note.set_note_body(),
                             "Дата создания": Note.get_note_data_creating_str(),
                             "Дата изменения": Note.get_note_data_change_str()}}
-
-
-
 
     def add_note(self, note):
         self.notes.append(note)
@@ -64,14 +56,40 @@ class Notebook:
 
         if not flag: print("Заметки с таким номером не существует!\n------------------------------")
 
-    def save(self):
-        filehandler = FileHandlerJson()
-        filehandler.save(self.notes)
+    def print_note_by_id(self):
+        note_id = None
+        list_note = self.get_notes()
+        print("Список номеров заметок : ")
+        for i in list_note:
+            id_int = Note.get_note_id(i)
+            print(id_int)
+        flag1 = True
+        while (flag1):
+            try:
+                note_id = int(
+                    input("Введите номер заметки (из вашего списка заметок выше), кторую хотите просмотреть:  "))
+                flag1 = False
+            except ValueError:
+                print("Вы ввели не число!")
 
-    def read(self):
-        fileHandler = FileHandlerJson()
-        noty = fileHandler.read()
-        self.set_notes(noty)
+        flag = False
+        for i in list_note:
+            id_int = Note.get_note_id(i)
+            if note_id == id_int:
+                print(Note.note_to_string(i))
+                flag = True
+
+        if flag == False:
+            print("Заметки с таким номером не сущесвует! Попробуйте еще раз!")
+            self.print_note_by_id()
+
+    def sort_by_data_creating(self):
+        list_sort_notes =sorted(self.get_notes(),key=lambda note:note.get_note_data_creating())
+        self.set_notes(list_sort_notes)
+
+    def sort_by_data_change(self):
+        list_sort_notes = sorted(self.get_notes(), key=lambda note: note.get_note_data_change())
+        self.set_notes(list_sort_notes)
 
 
 
@@ -79,5 +97,5 @@ class Notebook:
 
 
     def to_string(self):
-        for i in self.notes:
+        for i in self.get_notes():
             print(i.note_to_string())
