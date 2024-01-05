@@ -22,6 +22,11 @@ class Notebook:
         self.notes.append(note)
 
     def remove_note(self) -> None:
+        list_note = self.get_notes()
+        print("Список номеров заметок : ")
+        for i in list_note:
+            id_int = Note.get_note_id(i)
+            print(id_int)
         try:
             number_note = int(input("Введите номер заметки которую вы хотите удалить: "))
             flag = False
@@ -37,6 +42,11 @@ class Notebook:
             print("Вы ввели не число!")
 
     def change_note(self) -> None:
+        list_note = self.get_notes()
+        print("Список номеров заметок : ")
+        for i in list_note:
+            id_int = Note.get_note_id(i)
+            print(id_int)
         try:
             number_note = int(input("Введите номер заметки которую вы хотите изменить: "))
             flag = False

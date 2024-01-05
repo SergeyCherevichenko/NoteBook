@@ -21,7 +21,7 @@ class ConsoleUI(View):
 
     def choice(self) -> None:
         try:
-            line = int(input("Выберите одну из операций ниже по номеру: "))
+            line = int(input("Выберите одну из операций выше по номеру: "))
         except Exception:
             print("Вы ввели не число!")
             self.choice()
