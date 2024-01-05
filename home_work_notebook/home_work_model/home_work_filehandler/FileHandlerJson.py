@@ -1,12 +1,7 @@
 
-
-
-
 import json
 
 from home_work_notebook.home_work_model.home_work_my_interface.MyInterface import MyInterface
-
-
 class FileHandlerJson(MyInterface):
 
     def save(self, my_list):

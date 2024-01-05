@@ -19,8 +19,13 @@ class ConsoleUI(View):
             self.print_menu()
             self.choice()
 
-    def choice(self)->None:
-        line = int(input("Выберите одну из операций ниже по номеру: "))
+    def choice(self) -> None:
+        try:
+            line = int(input("Выберите одну из операций ниже по номеру: "))
+        except Exception:
+            print("Вы ввели не число!")
+            self.choice()
+
         if 0 < line <= self.menu.size():
             self.menu.execute(line)
         else:
